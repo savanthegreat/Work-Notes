@@ -44,11 +44,12 @@ newNote.addEventListener("click", function (e) {
 
 function showNotes() {
   let allNotes = JSON.parse(localStorage.getItem("notes"));
-  //console.log(allNotes);
-  let htmlForNotes = ``;
-  allNotes.forEach(function (noteText, noteNumber) {
-    //console.log("Ff", htmlForNotes);
-    htmlForNotes += `
+  if (allNotes) {
+    //console.log(allNotes);
+    let htmlForNotes = ``;
+    allNotes.forEach(function (noteText, noteNumber) {
+      //console.log("Ff", htmlForNotes);
+      htmlForNotes += `
   <div class="card my-2 mx-2 card123" style="width: 17rem;">
   <div class="card-body"
     <h5 class="card-title" style="text-align: center"><b>Work Note ${
@@ -63,10 +64,11 @@ function showNotes() {
     </div>
   </div>
       `;
-  });
-  let noteSection = document.getElementById("notes");
-  noteSection.innerHTML = htmlForNotes;
-  //console.log(htmlForNotes);
+    });
+    let noteSection = document.getElementById("notes");
+    noteSection.innerHTML = htmlForNotes;
+    //console.log(htmlForNotes);
+  }
 }
 
 function deleteNode(index) {
