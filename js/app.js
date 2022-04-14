@@ -44,7 +44,7 @@ newNote.addEventListener("click", function (e) {
 
 function showNotes() {
   let allNotes = JSON.parse(localStorage.getItem("notes"));
-  if (allNotes) {
+  if (allNotes != null) {
     //console.log(allNotes);
     let htmlForNotes = ``;
     allNotes.forEach(function (noteText, noteNumber) {
