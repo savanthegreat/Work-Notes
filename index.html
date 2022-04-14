@@ -44,9 +44,23 @@
     <div class="container my-3">
       <div id="alert"></div>
       <h1 class="text-center">Welcome to Work Notes</h1>
+
       <div class="card">
         <div class="card-body text-center">
           <h4 class="">Add a new Work Note.</h4>
+          <textarea
+            class="form-control w-50 text-center"
+            placeholder="Add Title of work Note"
+            id="addNewNoteTitle"
+            style="
+              height: 30px;
+              display: block;
+              margin-left: auto;
+              margin-right: auto;
+            "
+            required
+          ></textarea>
+          <br />
           <textarea
             class="form-control w-50 text-center"
             placeholder="Add Details of work Note"
@@ -59,6 +73,17 @@
             "
             required
           ></textarea>
+          <br />
+          <!-- <input placeholder="Date" type="date" /> -->
+          <input
+            placeholder="Enter Deadline Date"
+            class="textbox-n text-center"
+            type="text"
+            onfocus="(this.type='date')"
+            onblur="(this.value == '' ? this.type='text' : this.type='date')"
+            id="deadlineDate"
+          />
+
           <div class="text-center">
             <button
               class="btn btn-primary my-3"
