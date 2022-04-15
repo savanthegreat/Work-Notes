@@ -1,4 +1,5 @@
 console.log("JavaScript is Connected!");
+minDate();
 showNotes();
 // let cards = document.getElementsByClassName("card");
 // cards.addEventListener("hover", function (e) {
@@ -17,6 +18,9 @@ newNote.addEventListener("click", function (e) {
   let newNoteDateArea = document.getElementById("deadlineDate");
   let newNoteDate = document.getElementById("deadlineDate").value;
 
+  let newNotePriorityArea = document.getElementById("hasPriority");
+  let newNotePriority = document.getElementById("hasPriority").checked;
+
   if (newNoteText.trim().length == 0) {
     htmlAlert = `
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -33,7 +37,12 @@ newNote.addEventListener("click", function (e) {
     //console.log(oldNotes);
     if (oldNotes) {
       let allNotes = JSON.parse(oldNotes);
-      allNotes.push({ newNoteTitle, newNoteText, newNoteDate });
+      allNotes.push({
+        newNoteTitle,
+        newNoteText,
+        newNoteDate,
+        newNotePriority,
+      });
       localStorage.setItem("notes", JSON.stringify(allNotes));
       //console.log("1");
       // console.log(allNotes);
@@ -47,6 +56,7 @@ newNote.addEventListener("click", function (e) {
     newNoteTextArea.value = "";
     newNoteTitleArea.value = "";
     newNoteDateArea.value = "";
+    newNotePriorityArea.checked = false;
     showNotes();
   }
 });
@@ -77,13 +87,13 @@ function showNotes() {
       }
 
       htmlForNotes += `
-  <div class="card my-2 mx-2 card123" style="width: 17rem; background: ${
-    daysRemaining + 1 ? "" : "rgb(255, 0, 0)"
-  };">
-  <div class="card-body"
-    <h5 class="card-title" style="text-align: center"><b> ${
-      data.newNoteTitle
-    }</b></h5>
+  <div class="card my-2 mx-2 card123 ${
+    data.newNotePriority ? "border-primary mb" : ""
+  }" style="width: 17rem; background: ${
+        daysRemaining + 1 ? "" : "rgb(255, 0, 0)"
+      }">
+  <div class="card-body text-center ">
+    <h5 class="card-title"><b> ${data.newNoteTitle}</b></h5>
     <hr />
     <p class="card-text">${data.newNoteText}</p>
     <hr />
@@ -114,8 +124,11 @@ function showNotes() {
 
       alertDiv = document.getElementById("alert");
       alertDiv.innerHTML = htmlAlert;
+    } else {
+      alertDiv = document.getElementById("alert");
+      alertDiv.innerHTML = "";
     }
-    console.log(dueToday);
+    // console.log(dueToday);
   }
 }
 
@@ -146,3 +159,16 @@ searchArea.addEventListener("input", function (e) {
     }
   });
 });
+
+function minDate() {
+  let dtToday = new Date();
+
+  let month = dtToday.getMonth() + 1;
+  let day = dtToday.getDate();
+  let year = dtToday.getFullYear();
+  if (month < 10) month = "0" + month.toString();
+  if (day < 10) day = "0" + day.toString();
+
+  let maxDate = year + "-" + month + "-" + day;
+  document.getElementById("deadlineDate").setAttribute("min", maxDate);
+}
